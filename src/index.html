@@ -8,6 +8,18 @@
     <link rel="stylesheet" type="text/css" href="css/main.css">
   </head>
   <body>
+    <div id="values-block">
+      <div id="values-p1" class="hide">
+        <input id="angle-p1" type="text" placeholder="Angle"/>
+        <input id="velocity-p1" type="text" placeholder="Velocity"/>
+        <button onclick="document.getElementById('values-p1').setAttribute('data-ready', true);">Throw</button>
+      </div>
+      <div id="values-p2" class="hide">
+        <input id="angle-p2" type="text" placeholder="Angle"/>
+        <input id="velocity-p2" type="text" placeholder="Velocity"/>
+        <button onclick="document.getElementById('values-p2').setAttribute('data-ready', true);">Throw</button>
+      </div>
+    </div>
     <canvas id="screen" width="700" height="500"></canvas>
     <script src="bundle.js"></script>
   </body>

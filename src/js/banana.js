@@ -19,6 +19,15 @@ class Banana {
   draw() {
     drawRect(this.screen, this, 'yellow');
   }
+  
+  setPosition(pos) {
+    this.center = pos;
+    //console.log(pos);
+  }
+  
+  setTrajectoryValues(...args) {
+    [this.vx, this.vy, this.gravity] = args;
+  }
 }
   
 export default Banana;

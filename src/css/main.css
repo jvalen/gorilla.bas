@@ -5,3 +5,12 @@ html {
 canvas {
   background-color: darkcyan;
 }
+
+.hide {
+  display: none;
+}
+
+div#values-p2 {
+  position: absolute;
+  left: 455px;
+}

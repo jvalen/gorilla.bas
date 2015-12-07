@@ -4,7 +4,9 @@ class Gorilla {
   constructor(screen, size, pos) {
     this.screen = screen;
     this.size = size;   
-    this.center = pos;   
+    this.center = pos;
+    
+    console.log(pos);
   }
   
   update() {
