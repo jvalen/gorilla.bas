@@ -1,5 +1,6 @@
+/* Body abstract object */
 let body = {
-  bodyType: 'body',
+  type: 'body',
   screen: null,
   size: null,
   center: null,

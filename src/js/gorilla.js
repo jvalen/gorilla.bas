@@ -3,6 +3,7 @@ import body from './body.js'
 
 let gorilla = function gorillaFactory(screen, size, pos) {
   return Object.assign(Object.create(body), {
+    type: 'gorilla',
     screen: screen,
     size: size,
     center: pos,
