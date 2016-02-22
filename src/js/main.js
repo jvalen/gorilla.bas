@@ -107,7 +107,7 @@ import {addClass, removeClass, colliding, randomIntInRange} from './utils.js'
               this.bodies[i].update();
             }
 
-            if (this.bodies[i] instanceof banana) {
+            if (this.bodies[i].type === 'banana') {
               let collide = collidingWithSomething(this.bodies[i]),
                   out = outOfBounds(this.bodies[i]);
 
