@@ -1,12 +1,10 @@
 import gorilla from './gorilla.js';
 import banana from './banana.js';
+import terrain from './terrain.js';
 import {addClass, removeClass, colliding, randomIntInRange} from './utils.js'
 
 ;(function(){
   let Game = function() {
-    const gorillaSize = { width: 20, height: 20 };
-    const bananaSize = { width: 15, height: 5 };
-
     let screen = document.getElementById("screen").getContext('2d'),
         size = {
           width: screen.canvas.width,
@@ -14,6 +12,13 @@ import {addClass, removeClass, colliding, randomIntInRange} from './utils.js'
         },
         center = { x: size.width / 2, y: size.height / 2 },
         self = this;
+
+    const gorillaSize = { width: 20, height: 20 };
+    const bananaSize = { width: 15, height: 5 };
+    const terrainSize = {
+      width: screen.canvas.width,
+      height: screen.canvas.height
+    };
 
     this.gameState = {
       state: 'player',
@@ -48,6 +53,11 @@ import {addClass, removeClass, colliding, randomIntInRange} from './utils.js'
         bananaSize,
         { x: 0, y: 0 },
         0, 0, 0
+      ),
+      terrain(
+        screen,
+        terrainSize,
+        { x: 0, y: 0 }
       )
     ];
 
@@ -89,9 +99,13 @@ import {addClass, removeClass, colliding, randomIntInRange} from './utils.js'
         case 'projectile':
           let bodies = this.bodies,
               collidingWithSomething = function(b1) {
-                return bodies.filter(function(b2){
-                    return colliding(b1, b2);
-                }).length !== 0;
+                if (b1.type !== 'terrain'){
+                  return bodies.filter(function(b2){
+                      return colliding(b1, b2);
+                  }).length !== 0;
+                } else {
+                  return false;
+                }
               },
               outOfBounds = function(b){
                 return (
