@@ -1,5 +1,11 @@
-export function drawRect(screen, body, color) {
+export function drawRect(screen, body, color, alpha) {
   screen.fillStyle = color;
+  if (typeof alpha === 'number') {
+    screen.globalAlpha = alpha;
+  } else {
+    screen.globalAlpha = 1;
+  }
+
   screen.fillRect(
     body.center.x - body.size.width / 2,
     body.center.y - body.size.height / 2,
