@@ -99,13 +99,13 @@ import {addClass, removeClass, colliding, randomIntInRange} from './utils.js'
         case 'projectile':
           let bodies = this.bodies,
               collidingWithSomething = function(b1) {
-                if (b1.type !== 'terrain'){
-                  return bodies.filter(function(b2){
-                      return colliding(b1, b2);
-                  }).length !== 0;
-                } else {
-                  return false;
-                }
+                return bodies.filter(function(b2){
+                  if (b2.type !== 'terrain'){
+                    return colliding(b1, b2);
+                  } else {
+                    //Implement terrain colliding method (b2) 
+                  }
+                }).length !== 0;
               },
               outOfBounds = function(b){
                 return (

@@ -4,41 +4,44 @@ import building from './building.js'
 
 let terrain = function terrainFactory(screen, size, pos) {
   function generateSkyline(terrainMaxWidth, terrainBottom) {
-    let minWidthEdifice = 40,
-        minHeightEdifice = 100,
-        maxWidthEdifice = 100,
-        maxHeightEdifice = 200,
+    let minWidthEdifice = 4,
+        minHeightEdifice = 8,
+        maxWidthEdifice = 10,
+        maxHeightEdifice = 20,
         currentWidth = 0,
         currentX = 0,
         colors = ['teal', 'gray', 'red'],
         skyline = [],
-        distanceEdifices = 2;
+        distanceEdifices = 5,
+        brickSize = 10;
 
     while (currentX < terrainMaxWidth - currentWidth) {
-      let auxWidth = randomIntInRange(minWidthEdifice, maxWidthEdifice),
-          auxHeight = randomIntInRange(minHeightEdifice, maxHeightEdifice),
+      let perColumn = randomIntInRange(minWidthEdifice, maxWidthEdifice),
+          perRow = randomIntInRange(minHeightEdifice, maxHeightEdifice),
           randomColor = colors[randomIntInRange(0, 2)];
 
       skyline.push(generateBuilding(
-        auxWidth,
-        auxHeight,
-        currentX + auxWidth / 2 , //The draw method set the object in the center
-        terrainBottom - auxHeight / 2, //The draw method set the object in the center
-        randomColor
+        perColumn,
+        perRow,
+        currentX,
+        terrainBottom - (perRow * brickSize) + 10,
+        randomColor,
+        brickSize
       ));
 
-      currentX += auxWidth + distanceEdifices;
+      currentX += perColumn * brickSize + distanceEdifices;
     }
 
     return skyline;
   }
 
-  function generateBuilding(w, h, x, y, color) {
+  function generateBuilding(bricksPerColumn, bricksPerRow, x, y, color, brickSize) {
     return building(
       screen,
-      { width: w, height: h },
+      { perColumn: bricksPerColumn, perRow: bricksPerRow },
       { x: x, y: y },
-      color
+      color,
+      brickSize
     );
   }
 
@@ -55,6 +58,13 @@ let terrain = function terrainFactory(screen, size, pos) {
       this.skyline.forEach((block, index)=>{
         block.draw();
       });
+    },
+    getSkylineAtomicalComponents() {
+      return this.skyline.reduce(
+        (acc, elem) => {
+          return acc.concat(elem.getBricks())
+        }
+      ,[]);
     }
   });
 }
