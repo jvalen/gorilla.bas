@@ -65,6 +65,11 @@ let terrain = function terrainFactory(screen, size, pos) {
           return acc.concat(elem.getBricks())
         }
       ,[]);
+    },
+    colliding(body) {
+      return this.skyline.filter(function(building){
+        return building.colliding(body);
+      }).length !== 0;
     }
   });
 }

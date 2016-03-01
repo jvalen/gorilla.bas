@@ -1,4 +1,4 @@
-import {drawRect} from './utils.js'
+import {drawRect, colliding} from './utils.js'
 import body from './body.js'
 
 let brick = function brickFactory(screen, size, pos, color) {
@@ -11,6 +11,9 @@ let brick = function brickFactory(screen, size, pos, color) {
     update() {},
     draw() {
       drawRect(this.screen, this, this.color);
+    },
+    colliding(body) {
+      return colliding(this, body);
     }
   });
 }

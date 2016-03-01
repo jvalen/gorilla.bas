@@ -103,7 +103,8 @@ import {addClass, removeClass, colliding, randomIntInRange} from './utils.js'
                   if (b2.type !== 'terrain'){
                     return colliding(b1, b2);
                   } else {
-                    //Implement terrain colliding method (b2) 
+                    //Terrain colliding method
+                    return b2.colliding(b1);
                   }
                 }).length !== 0;
               },
@@ -126,6 +127,7 @@ import {addClass, removeClass, colliding, randomIntInRange} from './utils.js'
                   out = outOfBounds(this.bodies[i]);
 
               if (collide || out) {
+                console.log('Colliding? ', collide);
                 this.nextState('player', {
                   nextPlayer: this.gameState.nextPlayer === 'p1' ? 'p2' : 'p1',
                   collide: collide

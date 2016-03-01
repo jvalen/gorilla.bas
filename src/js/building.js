@@ -52,6 +52,11 @@ let building = function buildingFactory(screen, size, pos, color, brickSize) {
     },
     getBricks() {
       return bricks;
+    },
+    colliding(body) {
+      return this.bricks.filter(function(brick){
+        return brick.colliding(body);
+      }).length !== 0;
     }
   });
 }
