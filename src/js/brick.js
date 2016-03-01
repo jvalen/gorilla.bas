@@ -14,6 +14,9 @@ let brick = function brickFactory(screen, size, pos, color) {
     },
     colliding(body) {
       return colliding(this, body);
+    },
+    explode() {
+      this.color = 'blue';
     }
   });
 }

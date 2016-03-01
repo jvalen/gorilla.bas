@@ -127,7 +127,6 @@ import {addClass, removeClass, colliding, randomIntInRange} from './utils.js'
                   out = outOfBounds(this.bodies[i]);
 
               if (collide || out) {
-                console.log('Colliding? ', collide);
                 this.nextState('player', {
                   nextPlayer: this.gameState.nextPlayer === 'p1' ? 'p2' : 'p1',
                   collide: collide
