@@ -43,6 +43,7 @@ let building = function buildingFactory(screen, size, pos, color, brickSize) {
     center: pos,
     color: color,
     bricks: bricks,
+    width: brickSize * size.perColumn,
     update() {},
     draw() {
       // drawRect(this.screen, this, this.color, 0.2);

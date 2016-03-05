@@ -20,6 +20,12 @@ import {addClass, removeClass, colliding, randomIntInRange} from './utils.js'
       height: screen.canvas.height
     };
 
+    const skyline = terrain(
+      screen,
+      terrainSize,
+      { x: 0, y: 0 }
+    );
+
     this.gameState = {
       state: 'player',
       nextPlayer: 'p1',
@@ -35,18 +41,12 @@ import {addClass, removeClass, colliding, randomIntInRange} from './utils.js'
       gorilla(
         screen,
         gorillaSize,
-        {
-          x: randomIntInRange(50, size.width / 6),
-          y: randomIntInRange(50, size.height / 2)
-        }
+        this.returnGorillaPosition('p1', gorillaSize, skyline)
       ),
       gorilla(
         screen,
         gorillaSize,
-        {
-          x: randomIntInRange(size.width / 2, size.width - 50),
-          y: randomIntInRange(50, size.height / 2)
-        }
+        this.returnGorillaPosition('p2', gorillaSize, skyline)
       ),
       banana(
         screen,
@@ -54,11 +54,7 @@ import {addClass, removeClass, colliding, randomIntInRange} from './utils.js'
         { x: 0, y: 0 },
         0, 0, 0
       ),
-      terrain(
-        screen,
-        terrainSize,
-        { x: 0, y: 0 }
-      )
+      skyline
     ];
 
     this.nextState('player', {
@@ -148,6 +144,23 @@ import {addClass, removeClass, colliding, randomIntInRange} from './utils.js'
         this.bodies[i].draw(screen);
       }
 
+    },
+
+    returnGorillaPosition: function(gorillaType, gorillaSize, terrain) {
+      let buildings = terrain.skyline,
+          nBuildings = buildings.length,
+          selected;
+
+      if (gorillaType === 'p1') {
+        selected = randomIntInRange(0, Math.floor(nBuildings / 2));
+      } else {
+        selected = randomIntInRange(Math.floor(nBuildings / 2) + 1, nBuildings - 1);
+      }
+
+      return {
+          x: buildings[selected].center.x + Math.floor(buildings[selected].width / 2) ,
+          y: buildings[selected].center.y - gorillaSize.height
+      };
     },
 
     nextState: function(newState, data) {
