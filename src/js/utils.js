@@ -12,6 +12,10 @@ export function drawRect(screen, body, color, alpha) {
     body.size.width, body.size.height);
 }
 
+export function textWidthCanvas(canvas, text) {
+  return canvas.measureText(text).width;
+}
+
 export function addClass(target, className) {
   if (typeof className === 'string') {
     target.className += ' ' + className;

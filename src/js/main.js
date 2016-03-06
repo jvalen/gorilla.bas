@@ -1,7 +1,13 @@
 import gorilla from './gorilla.js';
 import banana from './banana.js';
 import terrain from './terrain.js';
-import {addClass, removeClass, colliding, randomIntInRange} from './utils.js'
+import {
+  addClass,
+  removeClass,
+  colliding,
+  randomIntInRange,
+  textWidthCanvas
+} from './utils.js';
 
 ;(function(){
   let Game = function() {
@@ -36,6 +42,8 @@ import {addClass, removeClass, colliding, randomIntInRange} from './utils.js'
       maxVitories: 3,
       impact: false
     };
+
+    this.names = { p1: 'Player1', p2: 'Player2'};
 
     this.bodies = [
       gorilla(
@@ -144,8 +152,17 @@ import {addClass, removeClass, colliding, randomIntInRange} from './utils.js'
         this.bodies[i].draw(screen);
       }
 
-    },
+      //Draw names
+      screen.fillStyle = "white";
+      screen.font = "20px serif";
+      screen.fillText(this.names.p1, 10, 20);
+      screen.fillText(
+        this.names.p2,
+        screen.canvas.width - textWidthCanvas(screen, this.names.p2) - 10,
+        20
+      );
 
+    },
     returnGorillaPosition: function(gorillaType, gorillaSize, terrain) {
       let buildings = terrain.skyline,
           nBuildings = buildings.length,
