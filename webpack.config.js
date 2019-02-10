@@ -1,35 +1,42 @@
-var path = require('path')
+const HtmlWebPackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-    devtool: 'source-map',
-    entry: {
-        app: ['./src/js/main.js']
-    },
-    devServer: {
-        contentBase: "src/"
-    },
-    output: {
-        path: path.resolve(__dirname, 'src'),
-        publicPath: '/',
-        filename: 'bundle.js'
-    },
-    module: {
-        loaders: [
-            // Babel loader
-            {
-                test: /\.jsx?$/,
-                exclude: /(node_modules|bower_components)/,
-                loader: 'babel?optional[]=runtime'
-            },
-
-            {
-                test: /\.json$/,
-                exclude: /(node_modules|bower_components)/,
-                loader: 'json'
-            }
+  entry: {
+    app: ["./src/js/main.js"]
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader"
+        }
+      },
+      {
+        test: /\.html$/,
+        use: [
+          {
+            loader: "html-loader",
+            options: { minimize: true }
+          }
         ]
-    },
-    resolve: {
-        extensions: ['.js', '.json', '']
-    }
-}
+      },
+      {
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, "css-loader"]
+      }
+    ]
+  },
+  plugins: [
+    new HtmlWebPackPlugin({
+      template: "./src/index.html",
+      filename: "./index.html"
+    }),
+    new MiniCssExtractPlugin({
+      filename: "[name].css",
+      chunkFilename: "[id].css"
+    })
+  ]
+};
